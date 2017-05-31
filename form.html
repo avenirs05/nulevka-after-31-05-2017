@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="format-detection" content="telephone=no" />
+	
+	<title>Form</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <link href="css/jquery-ui.theme.css" rel="stylesheet">
+    <link href="css/jquery-ui.structure.css" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="style.css" rel="stylesheet">
+
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+<script>
+
+$(function () {
+
+    function popUpCallback() {
+        $("#dialog-callback").dialog( {
+            resizable: false,
+            draggable: false,
+            width: 266,
+            modal: true,
+            title: 'Мы Вас проконсультируем',
+        } );
+    } 
+
+    var showAndHideTaxSystem = function () {
+        var allInputs = $('.tax-system-answer > input');
+        for (var i = 0; i < allInputs.length; i++) {
+            if (allInputs.eq(i).prop('checked')) {
+                $('.tax-answer-' + i).show();
+                $('#btn-next-tax-system').show();
+            } else $('.tax-answer-' + i).hide();                
+        }
+    }
+
+    var showAndHideUK = function () {
+        if (($('#qrt-4-2016')).prop('checked')) {
+             $('#uk-question-0').show();
+        } else $('#uk-question-0').hide();
+        
+        if (($('#qrt-4-2015')).prop('checked')) {
+             $('#uk-question-1').show();
+        } else $('#uk-question-1').hide();
+        
+        if (($('#qrt-4-2014')).prop('checked')) {
+             $('#uk-question-2').show();
+        } else $('#uk-question-2').hide();
+    }
+
+    function hideAllInputsWillSend () {
+        $('#decl-nds').parent().parent().hide();
+        $('#decl-profit').parent().parent().hide();
+        $('#count-ins').parent().parent().hide();        
+        $('#count-fss').parent().parent().hide();
+        $('#decl-one').parent().parent().hide();
+        $('#szv-m').parent().parent().hide();        
+    }
+
+    function showInputsWillSend (idOfReport) {
+        var periods = $('#choice-period > div > label');
+        var inputs = $('#choice-period > div > label > input');
+        var cntQrt = 0;        
+        for (var i = 0; i < periods.length; i++) {                    
+            if (inputs.eq(i).prop('checked')) {
+                cntQrt = cntQrt + 1;
+            }
+        }  
+        if (cntQrt > 1) {
+            for (var i = 0; i < periods.length; i++) {                    
+                if (inputs.eq(i).prop('checked')) {
+                    $(idOfReport)
+                        .parent()
+                        .parent()
+                        .append("<div class='periods-will-send'><label><input type='checkbox' checked>" + periods.eq(i).text() + "</input></label></div>");
+                }
+            }
+        } else if (cntQrt === 1) { 
+            $("#span-we-will-send-2017").show();
+            $("#span-we-will-send").hide();
+        };
+    }
+                
+    function showAndHideChildChecks (reportId) {
+        if ( $(reportId).prop('checked') == false ) {
+            var quarter = $(reportId).parent().siblings();
+            for (var i = 0; i < quarter.length; i++) {
+                quarter.children('label').children('input').eq(i).prop("checked", false);
+            }
+        }
+        if ( $(reportId).prop('checked')) {
+            var quarter = $(reportId).parent().siblings();
+            for (var i = 0; i < quarter.length; i++) {
+                quarter.children('label').children('input').eq(i).prop("checked", true);
+            }
+        }
+    }
+
+    $("#general").change(showAndHideTaxSystem);
+    $("#simple").change(showAndHideTaxSystem);
+    $("#another").change(showAndHideTaxSystem);
+    $("#not-know").change(showAndHideTaxSystem);
+    $("#qrt-4-2016, #qrt-4-2015, #qrt-4-2014").change(showAndHideUK);
+    
+    $("#btn-next-tax-system").click(function() {
+        if ( $('#general').prop('checked') ) {
+            $('#div-tranz').show();
+            $('#div-tax-system').hide();
+        }
+    });
+
+    $("#btn-back-tranz").click(function() {
+        $('#div-tranz').hide();
+        $('#div-tax-system').show();
+    });
+    
+    $("#tranz-yes").change(function() {
+         if (($('#tranz-yes')).prop('checked')) {
+              $('#btn-next-tranz').show();
+         } 
+    });
+
+    $("#tranz-no").change(function() {
+        if (($('#tranz-no')).prop('checked')) {
+            $('#btn-next-tranz').show();
+        } 
+    });
+
+    $("#btn-next-tranz").click(function() {
+        $('#div-one-face').show();
+        $('#div-tranz').hide();
+    });
+    
+    $("#btn-back-one-face").click(function() {
+        $('#div-tranz').show();
+        $('#div-one-face').hide();
+        
+    });
+
+    $("#one-face-yes").change(function() {
+         if (($('#one-face-yes')).prop('checked')) {
+              $('#btn-next-one-face').show();
+         } 
+    });
+
+    $("#one-face-no").change(function() {
+        if (($('#one-face-no')).prop('checked')) {
+            $('#btn-next-one-face').show();
+        } 
+    });
+
+    $("#szv-quest-yes").change(function() {
+         if (($('#szv-quest-yes')).prop('checked')) {
+              $('#btn-next-szv-quest').show();
+         } 
+    });
+
+    $("#szv-quest-no").change(function() {
+        if (($('#szv-quest-no')).prop('checked')) {
+            $('#btn-next-szv-quest').show();
+        } 
+    });
+
+    $("#btn-next-one-face").click(function() {
+        $('#div-one-face').hide();
+        $('#div-szv-quest').show();
+    });
+
+    $("#btn-back-szv-quest").click(function() {
+        $('#div-szv-quest').hide();
+        $('#div-one-face').show();         
+    });
+
+    $("#btn-next-szv-quest").click(function() {
+        $('#div-szv-quest').hide();
+        $('#div-will-send').show();
+        $('#span-we-will-send').show();
+        $('#div-from-customer').show();
+
+        if ( $('#tranz-yes').prop('checked') && $('#one-face-yes').prop('checked') ) {            
+            hideAllInputsWillSend();
+            $('#decl-nds').parent().parent().show();
+            showInputsWillSend('#decl-nds');
+            $('#decl-profit').parent().parent().show();
+            showInputsWillSend('#decl-profit');
+            $('#count-ins').parent().parent().show();
+            showInputsWillSend('#count-ins');
+            $('#count-fss').parent().parent().show();
+            showInputsWillSend('#count-fss');            
+        }
+
+        if ( $('#tranz-yes').prop('checked') && $('#one-face-yes').prop('checked') == false ) {
+            hideAllInputsWillSend();
+            $('#decl-nds').parent().parent().show();
+            showInputsWillSend('#decl-nds');
+            $('#decl-profit').parent().parent().show();
+            showInputsWillSend('#decl-profit');
+            $('#count-ins').parent().parent().show();
+            showInputsWillSend('#count-ins');
+            $('#count-fss').parent().parent().show();
+            showInputsWillSend('#count-fss');
+            $('#szv-m').parent().parent().show();
+            showInputsWillSend('#szv-m');
+        }
+
+        if ( $('#tranz-yes').prop('checked') == false && $('#one-face-yes').prop('checked') ) {
+            hideAllInputsWillSend();
+            $('#decl-one').parent().parent().show();
+            showInputsWillSend('#decl-one');
+            $('#count-ins').parent().parent().show();
+            showInputsWillSend('#count-ins');
+            $('#count-fss').parent().parent().show();
+            showInputsWillSend('#count-fss');
+        }
+
+        if ( $('#tranz-yes').prop('checked') == false && $('#one-face-yes').prop('checked') == false ) {
+            hideAllInputsWillSend ();
+            $('#decl-one').parent().parent().show();
+            showInputsWillSend('#decl-one');
+            $('#count-ins').parent().parent().show();
+            showInputsWillSend('#count-ins');
+            $('#count-fss').parent().parent().show();
+            showInputsWillSend('#count-fss');
+            $('#szv-m').parent().parent().show();
+            showInputsWillSend('#szv-m');
+        }  
+    });
+    
+    $("#btn-back-will-send").click(function() {      
+        $('#div-will-send').hide();
+        $('#div-from-customer').hide();
+        $(".periods-will-send").remove();
+        $('#div-szv-quest').show();  
+        $('#span-we-will-send-2017').hide();        
+    });
+
+    $("#another-periods").click(function() {
+        var anotherPeriodsColl = $('#another-periods').siblings('div').children('label').children('input:not(#qrt-2-2017)');     
+        for (var i = 0; i < $(anotherPeriodsColl).length; i++) {
+            var anotherPeriodsInput = anotherPeriodsColl.eq(i).parent();
+            if (anotherPeriodsInput.css('display') == "none") {
+               anotherPeriodsInput.show(); 
+            } 
+            else 
+                anotherPeriodsInput.hide();
+                $('#uk-question-0').hide();
+                $('#uk-question-1').hide();
+                $('#uk-question-2').hide();
+        }            
+    });
+
+    $("#decl-nds").change(function() { showAndHideChildChecks (this); });
+    $("#decl-profit").change(function() { showAndHideChildChecks (this); });
+    $("#count-ins").change(function() { showAndHideChildChecks (this); });
+    $("#count-fss").change(function() { showAndHideChildChecks (this); });
+    $("#decl-one").change(function() { showAndHideChildChecks (this); });
+    $("#szv-m").change(function() { showAndHideChildChecks (this); });
+
+    $("#btn-test").click(function() {      
+        for (var i = 0; i < $('.lbl').length; i++) {
+            alert ( $('.lbl').eq(i).children('input').data('item'));
+            alert ( $('.lbl').eq(i).children('input').data('list'));
+        }
+    });
+
+    $('#div-will-send').on("change", ".periods-will-send label input", function () {
+        var divs = $(this).parent().parent().siblings();
+        var childrElem = $(this).parent().parent().parent().children();
+        if ( $(this).prop('checked') ) {
+            divs.eq(0).children('input').prop('checked', true);
+        }         
+        for (var i = 1; i < childrElem.length; i++) {
+            if ( childrElem.eq(i).children('label').children('input').prop('checked') ) {
+                break;
+            }
+            if ( i == (childrElem.length - 1) ) {
+                if ( childrElem.eq(i).children('label').children('input').prop('checked') == false ) {
+                    divs.eq(0).children('input').prop('checked', false);
+                }
+            }
+        }
+    });
+       
+    var regExpInn = /^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/;
+
+    $('#inn').blur(function() {
+        if ( $(this).val().match(regExpInn) == null ) {
+            $(this).css('color', 'red');
+        } else $(this).css('color', '#000000');
+    });
+
+    $('#inn').focus(function() {
+        $(this).css('color', '#000000');
+    });
+
+                   
+});
+</script>
+    
+    <style>
+        body {
+            padding-left: 10px;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- <label class="lbl" for="inp-1"><input id="inp-1" type="checkbox" data-item="1" data-list="11" checked>1-й квартал 2017 года</label><br>
+<label class="lbl" for="inp-1"><input id="inp-2" type="checkbox" data-item="2" data-list="12" checked>2-й квартал 2017 года</label><br>
+<label class="lbl" for="inp-1"><input id="inp-3" type="checkbox" data-item="3" data-list="13" checked>3-й квартал 2017 года</label><br>
+<button id="btn-test">Тест</button><br><br><br> -->
+
+<form id="form-tax-system" action="">
+    <div id="div-tax-system">
+        <span>Выберите систему налогообложения:</span><br>        
+        <label class="tax-system-answer" for="general"><input id="general" type="radio" name="tax-system">Общая</label><br>
+        <div id="choice-period" style="display: none" class="tax-answer-0"><i><span>Выберите период</span></i><br>
+
+            <div><label for="qrt-2-2017"><input id="qrt-2-2017" type="checkbox" name="qrt-2-2017" checked>2-й квартал 2017 года</label></div>            
+            <a id="another-periods" href="#" onclick="return false;">Другие периоды</a><br>
+            <div><label style="display: none;" for="qrt-1-2017"><input id="qrt-1-2017" type="checkbox" name="qrt-1-2017">1-й квартал 2017 года</label></div>
+            <div><label style="display: none;" for="qrt-4-2016"><input id="qrt-4-2016" type="checkbox" name="qrt-4-2016">4-й квартал 2016 года</label></div>
+            <p style="display: none" id="uk-question-0"><strong>Как внесен уставной капитал?</strong><br>
+                <label for="money-0"><input id="money-0" type="radio" name="deposit-uk-4-2016">Деньгами</label><br>
+                <label for="things-0"><input id="things-0" type="radio" name="deposit-uk-4-2016">Имуществом</label><br>
+            </p>        
+            <div><label style="display: none;" for="qrt-3-2016"><input id="qrt-3-2016" type="checkbox" name="qrt-3-2016">3-й квартал 2016 года</label></div>
+            <div><label style="display: none;" for="qrt-2-2016"><input id="qrt-2-2016" type="checkbox" name="qrt-2-2016">2-й квартал 2016 года</label></div>
+            <div><label style="display: none;" for="qrt-1-2016"><input id="qrt-1-2016" type="checkbox" name="qrt-1-2016">1-й квартал 2016 года</label></div>
+            <div><label style="display: none;" for="qrt-4-2015"><input id="qrt-4-2015" type="checkbox" name="qrt-4-2015">4-й квартал 2015 года</label></div>
+            <p style="display: none" id="uk-question-1"><strong>Как внесен УК?</strong><br>
+                <label for="money-1"><input id="money-1" type="radio" name="deposit-uk-4-2015">Деньгами</label><br>
+                <label for="things-1"><input id="things-1"type="radio" name="deposit-uk-4-2015">Имуществом</label><br>
+            </p>        
+            <div><label style="display: none;" for="qrt-3-2015"><input id="qrt-3-2015" type="checkbox" name="qrt-3-2015">3-й квартал 2015 года</label></div>
+            <div><label style="display: none;" for="qrt-2-2015"><input id="qrt-2-2015" type="checkbox" name="qrt-2-2015">2-й квартал 2015 года</label></div>
+            <div><label style="display: none;" for="qrt-1-2015"><input id="qrt-1-2015" type="checkbox" name="qrt-1-2015">1-й квартал 2015 года</label></div>
+            <div><label style="display: none;" for="qrt-4-2014"><input id="qrt-4-2014" type="checkbox" name="qrt-4-2014">4-й квартал 2014 года</label></div>
+            <p style="display: none" id="uk-question-2"><strong>Как внесен УК?</strong><br>
+                <label for="money-2"><input id="money-2" type="radio" name="deposit-uk-4-2014">Деньгами</label><br>
+                <label for="things-2"><input id="things-2" type="radio" name="deposit-uk-4-2014">Имуществом</label><br>
+            </p>        
+            <div><label style="display: none;" for="qrt-3-2014"><input id="qrt-3-2014" type="checkbox" name="qrt-3-2014">3-й квартал 2014 года</label></div>
+            <div><label style="display: none;" for="qrt-2-2014"><input id="qrt-2-2014" type="checkbox" name="qrt-2-2014">2-й квартал 2014 года</label></div><br>
+
+        </div>   
+        <label class="tax-system-answer" for="simple"><input id="simple" type="radio" name="tax-system">Упрощенная</label><br>
+        <div style="display: none" class="tax-answer-1">Контент если выбрано Упрощенная</div>        
+        <label class="tax-system-answer" for="another"><input id="another" type="radio" name="tax-system">Другая<br></label><br>
+        <div style="display: none" class="tax-answer-2">Контент если выбрано Другая</div>        
+        <label class="tax-system-answer" for="not-know"><input id="not-know" type="radio" name="tax-system">Я не знаю</label><br>
+        <div style="display: none" class="tax-answer-3">Контент если выбрано Я не знаю какая система налоговая</div><br>        
+        <button id="btn-next-tax-system" style="display: none;">Дальше</button>
+    </div>
+    <div id="div-tranz" style="display: none">
+        <span>Были ли движения по расчетному счету?</span><br>
+        <label for="tranz-yes"><input id="tranz-yes" type="radio" name="tranz">Да</label><br>
+        <label for="tranz-no"><input id="tranz-no" type="radio" name="tranz">Нет</label><br><br>
+        <button id="btn-back-tranz">Назад</button> 
+        <button id="btn-next-tranz" style="display: none;">Дальше</button> 
+    </div>
+
+    <div id="div-one-face" style="display: none">
+        <span>У Вас единственный учредитель и он же директор (генеральный директор)?</span><br>        
+        <label for="one-face-yes"><input id="one-face-yes" type="radio" name="one-face">Да</label><br>
+        <label for="one-face-no"><input id="one-face-no" type="radio" name="one-face">Нет</label><br><br>
+        <button id="btn-back-one-face">Назад</button>
+        <button id="btn-next-one-face" style="display: none;">Дальше</button>  
+    </div>
+
+    <div id="div-szv-quest" style="display: none">
+        <span>Сдавали ли Вы форму СЗВ-М? Если да, то отметьте</span><br>        
+        <label for="szv-quest-yes"><input id="szv-quest-yes" type="radio" name="szv-quest">Да</label><br>
+        <label for="szv-quest-no"><input id="szv-quest-no" type="radio" name="szv-quest">Нет</label><br><br>
+        <button id="btn-back-szv-quest">Назад</button>
+        <button id="btn-next-szv-quest" style="display: none;">Дальше</button>  
+    </div>
+
+    <div id="div-will-send" style="display: none">
+        <span id="span-we-will-send">Мы за Вас подготовим:</span>
+        <span id="span-we-will-send-2017" style="display: none;">Мы за Вас подготовим за 2-й квартал 2017 года</span>
+        <div style="display: none;">
+            <label for='decl-nds'><input id='decl-nds' type='checkbox' name='decl-nds' checked><strong>Налоговая декларация по НДС</strong></label>
+        </div>
+        <div style="display: none;">
+            <label for='decl-profit'><input id='decl-profit' type='checkbox' name='decl-profit' checked><strong>Налоговая декларация по налогу на прибыль</strong></label>
+        </div>
+        <div style="display: none;">
+            <label for='count-ins'><input id='count-ins' type='checkbox' name='count-ins' checked><strong>Расчет по страховым взносам</strong></label>
+        </div>
+        <div style="display: none;">
+            <label for='count-fss'><input id='count-fss' type='checkbox' name='count-fss' checked><strong>Расчетная ведомость в ФСС</strong></label>
+        </div>
+        <div style="display: none;">
+            <label for='decl-one'><input id='decl-one' type='checkbox' name='decl-one' checked><strong>Единая упрощенная декларация</strong></label>
+        </div>
+        <div style="display: none;">
+            <label for='szv-m'><input id='szv-m' type='checkbox' name='szv-m' checked><strong>СЗВ-М</strong></label>
+        </div>
+    </div>
+
+    <div id="div-from-customer" style="display: none;">
+        <div><div>Название компании</div><input id="company-name" type="text" name="company-name"></div>
+        <div><div>Инн</div><input id="inn" type="text" name="inn"></div>
+        <div><div>Телефон</div><input id="phone" type="text" name="phone"></div>
+        <div><div>Email</div><input id="email" type="text" name="email"></div>
+        <button id="btn-back-will-send">Назад</button>
+        <input type="submit" value="Перейти к оплате" disabled></input>
+    </div>
+
+    <div id="dialog-callback" title="" style="display: none;">
+        <form action="">
+                <span class="title-input">Имя:</span>
+                <input type="text" name="name" placeholder="Введите имя">
+                <span class="title-input">Телефон: <span class="red">*</span></span>
+                <input type="text" name="phone" placeholder="Введите номер телефона" required>
+                <input type="submit" value="Отправить">
+        </form>
+    </div>
+
+
+
+</form>
+
+
+
+</body>
+</html>
