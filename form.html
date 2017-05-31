@@ -58,6 +58,15 @@ $(function () {
         } else $('#uk-question-2').hide();
     }
 
+    var showAndHideSZVMonths = function () {
+        if (($('#szv-quest-no')).prop('checked')) {
+             $('#szv-months').show();
+        } 
+        if (($('#szv-quest-yes')).prop('checked')) {
+             $('#szv-months').hide();
+        }
+    }
+
     function hideAllInputsWillSend () {
         $('#decl-nds').parent().parent().hide();
         $('#decl-profit').parent().parent().hide();
@@ -111,7 +120,9 @@ $(function () {
     $("#another").change(showAndHideTaxSystem);
     $("#not-know").change(showAndHideTaxSystem);
     $("#qrt-4-2016, #qrt-4-2015, #qrt-4-2014").change(showAndHideUK);
-    
+    $("#szv-quest-no").change(showAndHideSZVMonths);
+    $("#szv-quest-yes").change(showAndHideSZVMonths);
+
     $("#btn-next-tax-system").click(function() {
         if ( $('#general').prop('checked') ) {
             $('#div-tranz').show();
@@ -266,12 +277,12 @@ $(function () {
     $("#decl-one").change(function() { showAndHideChildChecks (this); });
     $("#szv-m").change(function() { showAndHideChildChecks (this); });
 
-    $("#btn-test").click(function() {      
-        for (var i = 0; i < $('.lbl').length; i++) {
-            alert ( $('.lbl').eq(i).children('input').data('item'));
-            alert ( $('.lbl').eq(i).children('input').data('list'));
-        }
-    });
+    // $("#btn-test").click(function() {      
+    //     for (var i = 0; i < $('.lbl').length; i++) {
+    //         alert ( $('.lbl').eq(i).children('input').data('item'));
+    //         alert ( $('.lbl').eq(i).children('input').data('list'));
+    //     }
+    // });
 
     $('#div-will-send').on("change", ".periods-will-send label input", function () {
         var divs = $(this).parent().parent().siblings();
@@ -380,9 +391,12 @@ $(function () {
     </div>
 
     <div id="div-szv-quest" style="display: none">
-        <span>Сдавали ли Вы форму СЗВ-М? Если да, то отметьте</span><br>        
+        <span>Сдавали ли Вы форму СЗВ-М?</span><br>        
         <label for="szv-quest-yes"><input id="szv-quest-yes" type="radio" name="szv-quest">Да</label><br>
         <label for="szv-quest-no"><input id="szv-quest-no" type="radio" name="szv-quest">Нет</label><br><br>
+        <p style="display: none" id="szv-months"><strong>Отметьте, за какие месяцы сдавали</strong><br>
+            <span>Месяцы</span>
+        </p> 
         <button id="btn-back-szv-quest">Назад</button>
         <button id="btn-next-szv-quest" style="display: none;">Дальше</button>  
     </div>
