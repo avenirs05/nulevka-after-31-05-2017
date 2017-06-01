@@ -91,9 +91,10 @@ $(function () {
     }
 
     var showAndHideSzvMonths = function () {
-        // if ( ($('div')).is('.month') ) {
-        //     return;
-        // }
+        if ( ($('div')).is('.month') ) {
+            $('.month').show();
+            return;
+        }
 
         if ( ($('#szv-quest-yes')).prop('checked') ) {
               $('#btn-next-tax-system').hide();
@@ -110,10 +111,10 @@ $(function () {
               $('#choice-months').show();
 
         }
-        if ( ($('#szv-quest-no')).prop('checked') ) {
-             $('#choice-months').hide();
-             $('.month').hide();
-        }
+        // if ( ($('#szv-quest-no')).prop('checked') ) {
+        //      $('#choice-months').hide();
+        //      $('.month').hide();
+        // }
     }
 
     function hideAllInputsWillSend () {
@@ -193,10 +194,26 @@ $(function () {
     $("#another").change(showAndHideTaxSystem);
     $("#not-know").change(showAndHideTaxSystem);
     $("#qrt-4-2016, #qrt-4-2015, #qrt-4-2014").change(showAndHideUK);
-    $("#szv-quest-no").change(showAndHideSzvMonths);
+    $("#szv-quest-no").change(function () {
+        $('#choice-months').hide();
+        $('.month').hide();
+    });
     $("#szv-quest-yes").change(showAndHideSzvMonths);
 
-    // $("#qrt-1-2017").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
+    $("html").on('change', '#qrt-2-2017', function () { $('.month').remove(); });
+    $("html").on('change', '#qrt-1-2017', function () { $('.month').remove(); });
+    $("html").on('change', '#qrt-4-2016', function () { $('.month').remove(); });
+    $("html").on('change', '#qrt-3-2016', function () { $('.month').remove(); });
+    $("html").on('change', '#qrt-2-2016', function () { $('.month').remove(); });
+    $("html").on('change', '#qrt-1-2016', function () { $('.month').remove(); });
+    $("html").on('change', '#qrt-4-2015', function () { $('.month').remove(); });
+    $("html").on('change', '#qrt-3-2015', function () { $('.month').remove(); });
+    $("html").on('change', '#qrt-2-2015', function () { $('.month').remove(); });
+    $("html").on('change', '#qrt-1-2015', function () { $('.month').remove(); });
+    $("html").on('change', '#qrt-4-2014', function () { $('.month').remove(); });
+    $("html").on('change', '#qrt-3-2014', function () { $('.month').remove(); });
+    $("html").on('change', '#qrt-2-2014', function () { $('.month').remove(); });
+
     // $("#qrt-4-2016").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
     // $("#qrt-3-2016").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
     // $("#qrt-2-2016").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
@@ -273,7 +290,7 @@ $(function () {
     $("#btn-next-one-face").click(function() {
         $('#div-one-face').hide();
         $('#div-szv-quest').show();
-        $('.month').remove();
+        // $('.month').remove();
         showAndHideSzvMonths();
     });
 
