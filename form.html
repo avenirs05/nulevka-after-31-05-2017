@@ -91,26 +91,30 @@ $(function () {
     }
 
     var showAndHideSzvMonths = function () {
+        // if ( ($('div')).is('.month') ) {
+        //     return;
+        // }
+
         if ( ($('#szv-quest-yes')).prop('checked') ) {
               $('#btn-next-tax-system').hide();
-              $('#choice-months').show();
+              $('#choice-months').show();              
               var inputs = $('#choice-quarters > div > label > input');
               for (var i = inputs.length - 1; i >= 0; i--) {
                    if ( inputs.eq(i).prop('checked') ) {
-                        $('#szv-quest-no')
-                        .parent('label')
+                        // $('#szv-quest-no')
+                        // .parent('label')
+                        $('#choice-months')
                         .after('<div class="month">' + inputs.eq(i).parent('label').text() + listOfMonths( inputs.eq(i).parent('label'), i ) + '</div>');
                    } 
-              }        
+              }
+              $('#choice-months').show();
+
         }
-        if (($('#szv-quest-no')).prop('checked')) {
+        if ( ($('#szv-quest-no')).prop('checked') ) {
              $('#choice-months').hide();
-             $('.month').remove();
+             $('.month').hide();
         }
     }
-
-    $("#szv-quest-no").change(showAndHideSzvMonths);
-    $("#szv-quest-yes").change(showAndHideSzvMonths);
 
     function hideAllInputsWillSend () {
         $('#decl-nds').parent().parent().hide();
@@ -189,6 +193,21 @@ $(function () {
     $("#another").change(showAndHideTaxSystem);
     $("#not-know").change(showAndHideTaxSystem);
     $("#qrt-4-2016, #qrt-4-2015, #qrt-4-2014").change(showAndHideUK);
+    $("#szv-quest-no").change(showAndHideSzvMonths);
+    $("#szv-quest-yes").change(showAndHideSzvMonths);
+
+    // $("#qrt-1-2017").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
+    // $("#qrt-4-2016").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
+    // $("#qrt-3-2016").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
+    // $("#qrt-2-2016").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
+    // $("#qrt-1-2016").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
+    // $("#qrt-4-2015").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
+    // $("#qrt-3-2015").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
+    // $("#qrt-2-2015").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
+    // $("#qrt-1-2015").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
+    // $("#qrt-4-2014").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
+    // $("#qrt-3-2014").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
+    // $("#qrt-2-2014").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
 
 
     $("#btn-next-tax-system").click(function() {
