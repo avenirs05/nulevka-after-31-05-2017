@@ -181,6 +181,7 @@ $(function () {
 
 
         } else {
+            ///alert('yyy');
             $('#btn-next-tax-system').hide();
             $('#choice-months').show();              
             var inputs = $('#choice-quarters > div > label > input');
@@ -378,20 +379,47 @@ $(function () {
         }  
     });
     
-    $("#btn-back-will-send").click(function() {      
-        $('#div-will-send').hide();
-        $('#div-from-customer').hide();
-        $(".periods-will-send").remove();
-        $('#div-szv-quest').show();  
-        $('#span-we-will-send-2017').hide();  
+    $("#btn-back-will-send").click(function() {
+        if ( $('#szv-quest-no').prop('checked') ) {
+            $('#div-will-send').hide();
+            $('#div-from-customer').hide();
+            $(".periods-will-send").remove();
+            $('#div-szv-quest').show();  
+            $('#span-we-will-send-2017').hide();  
 
-        $('#div-szv-quest > span').show();
-        $('#choice-months span').show();
-        $('#div-szv-quest br').show();
-        $('#szv-quest-yes').parent('label').show();
-        $('#szv-quest-no').parent('label').show(); 
-        $('#btn-back-szv-quest').show();
-        $('#btn-next-szv-quest').show();      
+            $('#div-szv-quest > span').show();
+            $('#choice-months span').show();
+            $('#div-szv-quest br').show();
+            $('#szv-quest-yes').parent('label').show();
+            $('#szv-quest-no').parent('label').show(); 
+            $('#btn-back-szv-quest').show();
+            $('#btn-next-szv-quest').show(); 
+            $('#choice-months').hide();
+            $('.month').remove();
+            // showAndHideSzvMonths();
+        } 
+
+        if ( $('#szv-quest-yes').prop('checked')) {
+            $('#div-will-send').hide();
+            $('#div-from-customer').hide();
+            $(".periods-will-send").remove();
+            $('#div-szv-quest').show();  
+            $('#span-we-will-send-2017').hide();  
+
+            $('#div-szv-quest > span').show();
+            $('#choice-months span').show();
+            $('#div-szv-quest br').show();
+            $('#szv-quest-yes').parent('label').show();
+            $('#szv-quest-no').parent('label').show(); 
+            $('#btn-back-szv-quest').show();
+            $('#btn-next-szv-quest').show(); 
+            $('#choice-months').hide();            
+            $('.month').remove(); 
+        }
+ 
+        // if ( $('#szv-quest-yes').prop('checked') ) {   
+        
+        // }
     });
 
     $("#another-periods").click(function() {
