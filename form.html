@@ -95,26 +95,18 @@ $(function () {
             $('.month').show();
             return;
         }
-
         if ( ($('#szv-quest-yes')).prop('checked') ) {
               $('#btn-next-tax-system').hide();
               $('#choice-months').show();              
               var inputs = $('#choice-quarters > div > label > input');
               for (var i = inputs.length - 1; i >= 0; i--) {
                    if ( inputs.eq(i).prop('checked') ) {
-                        // $('#szv-quest-no')
-                        // .parent('label')
                         $('#choice-months')
                         .after('<div class="month">' + inputs.eq(i).parent('label').text() + listOfMonths( inputs.eq(i).parent('label'), i ) + '</div>');
                    } 
               }
               $('#choice-months').show();
-
         }
-        // if ( ($('#szv-quest-no')).prop('checked') ) {
-        //      $('#choice-months').hide();
-        //      $('.month').hide();
-        // }
     }
 
     function hideAllInputsWillSend () {
@@ -150,28 +142,24 @@ $(function () {
         };
     }
 
-    function showInputsWillSendSzv (idOfReport) {
-        var periods = $('#choice-quarters > div > label');
-        var inputs = $('#choice-quarters > div > label > input');
-        var cntQrt = 0;        
-        for (var i = 0; i < periods.length; i++) {                    
-            if (inputs.eq(i).prop('checked')) {
-                cntQrt = cntQrt + 1;
-            }
-        }  
-        if (cntQrt > 1) {
-            for (var i = 0; i < periods.length; i++) {                    
-                if (inputs.eq(i).prop('checked')) {
-                    $(idOfReport)
-                        .parent()
-                        .parent()
-                        .append("<div class='periods-will-send'><label><input type='checkbox' checked>" + periods.eq(i).text() + "</input></label></div>");
-                }
-            }
-        } else if (cntQrt === 1) { 
-            $("#span-we-will-send-2017").show();
-            $("#span-we-will-send").hide();
-        };
+    function showInputsWillSendSzv () {
+        if ( ($('div')).is('.month') ) {
+            $('#div-szv-quest').show();
+
+                 $('#div-szv-quest > span').hide();
+                 $('#choice-months span').hide();
+                 $('#div-szv-quest br').hide();
+                 $('#szv-quest-yes').parent('label').hide();
+                 $('#szv-quest-no').parent('label').hide(); 
+                 $('#btn-back-szv-quest').hide();
+                 $('#btn-next-szv-quest').hide();  
+
+                 $('#form-tax-system').append( $('#div-szv-quest') );  
+                 $('#form-tax-system').append( $('#div-from-customer') ); 
+
+        } else alert( 'szv-no' );
+
+
     }
                 
     function showAndHideChildChecks (reportId) {
@@ -213,19 +201,6 @@ $(function () {
     $("html").on('change', '#qrt-4-2014', function () { $('.month').remove(); });
     $("html").on('change', '#qrt-3-2014', function () { $('.month').remove(); });
     $("html").on('change', '#qrt-2-2014', function () { $('.month').remove(); });
-
-    // $("#qrt-4-2016").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
-    // $("#qrt-3-2016").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
-    // $("#qrt-2-2016").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
-    // $("#qrt-1-2016").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
-    // $("#qrt-4-2015").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
-    // $("#qrt-3-2015").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
-    // $("#qrt-2-2015").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
-    // $("#qrt-1-2015").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
-    // $("#qrt-4-2014").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
-    // $("#qrt-3-2014").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
-    // $("#qrt-2-2014").change(function() { if ( ('div').is('.month') ) { $('.month').remove(); } });
-
 
     $("#btn-next-tax-system").click(function() {
         if ( $('#general').prop('checked') ) {
@@ -290,7 +265,6 @@ $(function () {
     $("#btn-next-one-face").click(function() {
         $('#div-one-face').hide();
         $('#div-szv-quest').show();
-        // $('.month').remove();
         showAndHideSzvMonths();
     });
 
@@ -328,7 +302,7 @@ $(function () {
             $('#count-fss').parent().parent().show();
             showInputsWillSend('#count-fss');
             $('#szv-m').parent().parent().show();
-            // showInputsWillSendSzv('#szv-m');
+            showInputsWillSendSzv();
         }
 
         if ( $('#tranz-yes').prop('checked') == false && $('#one-face-yes').prop('checked') ) {
@@ -338,7 +312,7 @@ $(function () {
             $('#count-ins').parent().parent().show();
             showInputsWillSend('#count-ins');
             $('#count-fss').parent().parent().show();
-            showInputsWillSend('#count-fss');
+            showInputsWillSend();
         }
 
         if ( $('#tranz-yes').prop('checked') == false && $('#one-face-yes').prop('checked') == false ) {
@@ -350,7 +324,7 @@ $(function () {
             $('#count-fss').parent().parent().show();
             showInputsWillSend('#count-fss');
             $('#szv-m').parent().parent().show();
-            // showInputsWillSendSzv('#szv-m');
+            showInputsWillSendSzv();
         }  
     });
     
@@ -359,7 +333,15 @@ $(function () {
         $('#div-from-customer').hide();
         $(".periods-will-send").remove();
         $('#div-szv-quest').show();  
-        $('#span-we-will-send-2017').hide();        
+        $('#span-we-will-send-2017').hide();  
+
+        $('#div-szv-quest > span').show();
+        $('#choice-months span').show();
+        $('#div-szv-quest br').show();
+        $('#szv-quest-yes').parent('label').show();
+        $('#szv-quest-no').parent('label').show(); 
+        $('#btn-back-szv-quest').show();
+        $('#btn-next-szv-quest').show();      
     });
 
     $("#another-periods").click(function() {
