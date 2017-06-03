@@ -158,13 +158,11 @@ $(function () {
             $('#form-tax-system').append( $('#div-from-customer') ); 
 
             var inputs = $('.month').children('div').children('label').children('input');
-            var cntDeleted = 0;
+            // var cntDeleted = 0;
             for (var i = 0; i < inputs.length; i++) {
                 if ( $(inputs).eq(i).prop('checked') ) {
                     $(inputs).eq(i).parent('label').parent('div').hide();
-                    cntDeleted = cntDeleted + 1;
                 } 
-
                 if ( $(inputs).eq(i).prop('checked') == false ) {
                     $(inputs).eq(i).prop('checked', true);
                 }
@@ -177,8 +175,10 @@ $(function () {
                      divs.eq(i).children('div').eq(2).css('display') == 'none' ) {
 
                     divs.eq(i).css('display', 'none');
-                }            
+                }
+
             }
+
 
         } else {
             $('#btn-next-tax-system').hide();
@@ -203,6 +203,11 @@ $(function () {
 
             $('#form-tax-system').append( $('#div-szv-quest') );  
             $('#form-tax-system').append( $('#div-from-customer') ); 
+
+            var divs = $('.month');
+            for (var i = 0; i < divs.length; i++) {
+                divs.eq(i).children('div').children('label').children('input').prop('checked', true);
+            } 
         }     
     }
                 
