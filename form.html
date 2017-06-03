@@ -325,6 +325,10 @@ $(function () {
     });
 
     $("#btn-next-szv-quest").click(function() {
+        if ( $('#szv-quest-no').prop('checked') ) { 
+            $('.month').remove(); 
+        }
+        
         $('#div-szv-quest').hide();
         $('#div-will-send').show();
         $('#span-we-will-send').show();
@@ -414,7 +418,7 @@ $(function () {
             $('#btn-back-szv-quest').show();
             $('#btn-next-szv-quest').show(); 
             $('#choice-months').hide();            
-            $('.month').remove(); 
+            // $('.month').remove(); 
         }
  
         // if ( $('#szv-quest-yes').prop('checked') ) {   
