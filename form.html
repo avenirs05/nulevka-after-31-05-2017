@@ -272,10 +272,10 @@ $(function () {
             $('#div-from-customer').before('<div><label for="buh-rep-ifns-4-2016"><input id="buh-rep-ifns-4-2016" type="checkbox" name="buh-rep-ifns-4-2016" checked>Бухгалтерская(финансовая) отчетность за 2016 год в ИФНС</label></div><div><label for="buh-rep-stat-4-2016"><input id="buh-rep-stat-4-2016" type="checkbox" name="buh-rep-stat-4-2016" checked>Бухгалтерская(финансовая) отчетность за 2016 год в Росстат</label></div><div><label for="workers-cnt-4-2016"><input id="workers-cnt-4-2016" type="checkbox" name="workers-cnt-4-2016" checked>Сведения о среднесписочной численности работников за 2016 год</label></div>');
         }
         if ( $('#qrt-4-2015').prop('checked') ) {
-            $('#div-from-customer').before('<div><label for="buh-rep-ifns-4-2015"><input id="buh-rep-ifns-4-2015" type="checkbox" name="buh-rep-ifns-4-2015" checked>Бухгалтерская(финансовая) отчетность за 2015 год в ИФНС</label></div><div><label for="buh-rep-stat-4-2015"><input id="buh-rep-stat-4-2015" type="checkbox" name="buh-rep-stat-4-2015" checked>Бухгалтерская(финансовая) отчетность за 2015 год в Росстат</label></div><div><label for="workers-cnt-4-2015"><input id="workers-cnt-4-2015" type="checkbox" name="workers-cnt-4-2015" checked>Сведения о среднесписочной численности работников за 2016 год</label></div>');
+            $('#div-from-customer').before('<div><label for="buh-rep-ifns-4-2015"><input id="buh-rep-ifns-4-2015" type="checkbox" name="buh-rep-ifns-4-2015" checked>Бухгалтерская(финансовая) отчетность за 2015 год в ИФНС</label></div><div><label for="buh-rep-stat-4-2015"><input id="buh-rep-stat-4-2015" type="checkbox" name="buh-rep-stat-4-2015" checked>Бухгалтерская(финансовая) отчетность за 2015 год в Росстат</label></div><div><label for="workers-cnt-4-2015"><input id="workers-cnt-4-2015" type="checkbox" name="workers-cnt-4-2015" checked>Сведения о среднесписочной численности работников за 2015 год</label></div>');
         }
         if ( $('#qrt-4-2014').prop('checked') ) {
-            $('#div-from-customer').before('<div><label for="buh-rep-ifns-4-2014"><input id="buh-rep-ifns-4-2014" type="checkbox" name="buh-rep-ifns-4-2014" checked>Бухгалтерская(финансовая) отчетность за 2014 год в ИФНС</label></div><div><label for="buh-rep-stat-4-2014"><input id="buh-rep-stat-4-2014" type="checkbox" name="buh-rep-stat-4-2014" checked>Бухгалтерская(финансовая) отчетность за 2014 год в Росстат</label></div><div><label for="workers-cnt-4-2014"><input id="workers-cnt-4-2014" type="checkbox" name="workers-cnt-4-2014" checked>Сведения о среднесписочной численности работников за 2016 год</label></div>');
+            $('#div-from-customer').before('<div><label for="buh-rep-ifns-4-2014"><input id="buh-rep-ifns-4-2014" type="checkbox" name="buh-rep-ifns-4-2014" checked>Бухгалтерская(финансовая) отчетность за 2014 год в ИФНС</label></div><div><label for="buh-rep-stat-4-2014"><input id="buh-rep-stat-4-2014" type="checkbox" name="buh-rep-stat-4-2014" checked>Бухгалтерская(финансовая) отчетность за 2014 год в Росстат</label></div><div><label for="workers-cnt-4-2014"><input id="workers-cnt-4-2014" type="checkbox" name="workers-cnt-4-2014" checked>Сведения о среднесписочной численности работников за 2014 год</label></div>');
         }
     }
 
@@ -427,9 +427,16 @@ $(function () {
     });
 
     $("#btn-next-one-face").click(function() {
-        $('#div-one-face').hide();
-        $('#div-szv-quest').show();       
-        showAndHideSzvMonths();
+        if ( $('#one-face-yes').prop('checked') ) {
+            $('#div-one-face').hide();
+            $('#btn-next-szv-quest').trigger('click');    
+        }
+        else {
+            $('#div-one-face').hide();
+            $('#div-szv-quest').show();       
+            showAndHideSzvMonths(); 
+        }
+
     });
 
     $("#btn-back-szv-quest").click(function() {
@@ -492,7 +499,7 @@ $(function () {
             $('#count-ins').parent().parent().show();
             showInputsWillSend('#count-ins');
             $('#count-fss').parent().parent().show();
-            showInputsWillSend();
+            showInputsWillSend('#count-fss');
         }
 
         if ( $('#tranz-yes').prop('checked') == false && $('#one-face-yes').prop('checked') == false ) {
@@ -558,6 +565,16 @@ $(function () {
                     inputs.eq(i).prop('checked', true);
                 } else inputs.eq(i).prop('checked', false);              
             }
+        }
+
+        if ( ($('#szv-quest-no').prop('checked') == false) && ($('#szv-quest-yes').prop('checked') == false) ) {
+            $('#div-will-send').hide();
+            $('#div-from-customer').hide();
+            $(".periods-will-send").remove();
+            $('#div-one-face').show();  
+            $('#span-we-will-send-2017').hide(); 
+            $('#choice-months').hide();
+            $('.month').remove();
         }
 
         $('#decl-usn-4-2016').parent('label').parent('div').remove();
