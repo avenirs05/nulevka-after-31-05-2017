@@ -70,8 +70,7 @@ $(function () {
         }
         if (str.match(/2014/)) {
             return '2014';
-        }
-      
+        }      
     }
 
     function listOfMonths (label) {
@@ -87,7 +86,6 @@ $(function () {
         if ( label.text().match(/^4/) ) {
             return '<div><label for="szv-oct-' + findYear(label.text()) + ' " ' + '><input id="szv-oct-' + findYear(label.text()) + ' " ' + ' ' + ' type="checkbox" name="szv-oct-' + findYear(label.text()) + ' " ' + ' ' + '>Октябрь</label></div><div><label for="szv-nov-' + findYear(label.text()) + ' " ' + '><input id="szv-nov-' + findYear(label.text()) + ' " ' + ' ' + ' type="checkbox" name="szv-nov-' + findYear(label.text()) + ' " ' + ' ' + '>Ноябрь</label></div><div><label for="szv-dec-' + findYear(label.text()) + ' " ' + '><input id="szv-dec-' + findYear(label.text()) + ' " ' + ' ' + ' type="checkbox" name="szv-dec-' + findYear(label.text()) + ' " ' + ' ' + '>Декабрь</label></div>';
         }
-
     }
 
     var showAndHideSzvMonths = function () {
@@ -95,9 +93,11 @@ $(function () {
             $('.month').show();
             return;
         }
+
         if ( ($('#szv-quest-yes')).prop('checked') ) {
               $('#btn-next-tax-system').hide();
               $('#choice-months').show();              
+              
               var inputs = $('#choice-quarters > div > label > input');
               for (var i = inputs.length - 1; i >= 0; i--) {
                    if ( inputs.eq(i).prop('checked') ) {
@@ -105,6 +105,7 @@ $(function () {
                         .after('<div class="month">' + inputs.eq(i).parent('label').text() + listOfMonths( inputs.eq(i).parent('label'), i ) + '</div>');
                    } 
               }
+
               $('#choice-months').show();
         }
     }
@@ -122,11 +123,13 @@ $(function () {
         var periods = $('#choice-quarters > div > label');
         var inputs = $('#choice-quarters > div > label > input');
         var cntQrt = 0;
+        
         for (var i = 0; i < periods.length; i++) {                    
             if (inputs.eq(i).prop('checked')) {
                 cntQrt = cntQrt + 1;
             }
         }
+
         if (cntQrt > 1) {
             for (var i = 0; i < periods.length; i++) {                    
                 if (inputs.eq(i).prop('checked')) {
@@ -144,8 +147,8 @@ $(function () {
 
     function showInputsWillSendSzv () {
         if ( ($('div')).is('.month') ) {
-            $('#div-szv-quest').show();
-            
+
+            $('#div-szv-quest').show();            
             $('#div-szv-quest > span').hide();
             $('#choice-months span').hide();
             $('#div-szv-quest br').hide();
@@ -153,12 +156,10 @@ $(function () {
             $('#szv-quest-no').parent('label').hide(); 
             $('#btn-back-szv-quest').hide();
             $('#btn-next-szv-quest').hide();  
-
             $('#form-tax-system').append( $('#div-szv-quest') );  
             $('#form-tax-system').append( $('#div-from-customer') ); 
 
             var inputs = $('.month').children('div').children('label').children('input');
-            // var cntDeleted = 0;
             for (var i = 0; i < inputs.length; i++) {
                 if ( $(inputs).eq(i).prop('checked') ) {
                     $(inputs).eq(i).parent('label').parent('div').hide();
@@ -167,23 +168,17 @@ $(function () {
                     $(inputs).eq(i).prop('checked', true);
                 }
             }
-            
+
             var divs = $('.month');
             for (var i = 0; i < divs.length; i++) {
-                if ( divs.eq(i).children('div').eq(0).css('display') == 'none' &&
-                     divs.eq(i).children('div').eq(1).css('display') == 'none' &&
-                     divs.eq(i).children('div').eq(2).css('display') == 'none' ) {
-
+                if ( divs.eq(i).children('div').eq(0).css('display') == 'none' && divs.eq(i).children('div').eq(1).css('display') == 'none' && divs.eq(i).children('div').eq(2).css('display') == 'none' ) {
                     divs.eq(i).css('display', 'none');
                 }
-
             }
-
-
         } else {
-            ///alert('yyy');
             $('#btn-next-tax-system').hide();
-            $('#choice-months').show();              
+            $('#choice-months').show();
+
             var inputs = $('#choice-quarters > div > label > input');
             for (var i = inputs.length - 1; i >= 0; i--) {
                  if ( inputs.eq(i).prop('checked') ) {
@@ -191,8 +186,8 @@ $(function () {
                       .after('<div class="month">' + inputs.eq(i).parent('label').text() + listOfMonths( inputs.eq(i).parent('label'), i ) + '</div>');
                  } 
             }
-            $('#choice-months').show();
 
+            $('#choice-months').show();
             $('#div-szv-quest').show();            
             $('#div-szv-quest > span').hide();
             $('#choice-months span').hide();
@@ -225,7 +220,23 @@ $(function () {
                 quarter.children('label').children('input').eq(i).prop("checked", true);
             }
         }
-    }
+    }    
+
+    function showAndHideChildChecksSzv (reportId) {        
+        if ( $(reportId).prop('checked') == false ) {
+            var inputs = $('.month').children('div').children('label').children('input');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs.eq(i).prop("checked", false);
+            }
+        }
+
+        if ( $(reportId).prop('checked')) {
+            var inputs = $('.month').children('div').children('label').children('input');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs.eq(i).prop("checked", true);
+            }
+        }
+    } 
 
     $("#general").change(showAndHideTaxSystem);
     $("#simple").change(showAndHideTaxSystem);
@@ -251,6 +262,17 @@ $(function () {
     $("html").on('change', '#qrt-4-2014', function () { $('.month').remove(); });
     $("html").on('change', '#qrt-3-2014', function () { $('.month').remove(); });
     $("html").on('change', '#qrt-2-2014', function () { $('.month').remove(); });
+
+    $("html").on('change', '.month', function () { 
+        var inputs = $('.month').children('div').children('label').children('input');
+        for (var i = 0; i < inputs.length; i++) {
+            if ( inputs.eq(i).prop('checked') ) {
+                $('#szv-m').prop('checked', true);
+                break;
+            }  
+            $('#szv-m').prop('checked', false);       
+        }
+    });
 
     $("#btn-next-tax-system").click(function() {
         if ( $('#general').prop('checked') ) {
@@ -415,7 +437,6 @@ $(function () {
             $('#szv-quest-no').parent('label').show(); 
             $('#btn-back-szv-quest').show();
             $('#btn-next-szv-quest').show(); 
-            // $('#choice-months').hide(); 
 
             var inputs = $('.month').children('div').children('label').children('input');
             for (var i = 0; i < inputs.length; i++) {
@@ -448,7 +469,8 @@ $(function () {
     $("#count-ins").change(function() { showAndHideChildChecks (this); });
     $("#count-fss").change(function() { showAndHideChildChecks (this); });
     $("#decl-one").change(function() { showAndHideChildChecks (this); });
-    $("#szv-m").change(function() { showAndHideChildChecks (this); });
+    $("#szv-m").change(function() { showAndHideChildChecksSzv (this); });
+    
 
     // $("#btn-test").click(function() {      
     //     for (var i = 0; i < $('.lbl').length; i++) {
@@ -565,19 +587,8 @@ $(function () {
         <span>Сдавали ли Вы форму СЗВ-М?</span><br>        
         <label for="szv-quest-yes"><input id="szv-quest-yes" type="radio" name="szv-quest">Да</label><br>
         <label for="szv-quest-no"><input id="szv-quest-no" type="radio" name="szv-quest">Нет</label><br>
-        <div id="choice-months" style="display: none"><i><span>Выберите период, за который сдавался отчет:</span></i><br>
-<!--             <div><label style="display: none;" for="jan"><input id="jan" type="checkbox" name="jan">Январь</label></div>
-            <div><label style="display: none;" for="feb"><input id="feb" type="checkbox" name="feb">Февраль</label></div>       
-            <div><label style="display: none;" for="mar"><input id="mar" type="checkbox" name="mar">Март</label></div>
-            <div><label style="display: none;" for="apr"><input id="apr" type="checkbox" name="apr">Апрель</label></div>
-            <div><label style="display: none;" for="may"><input id="may" type="checkbox" name="may">Май</label></div>
-            <div><label style="display: none;" for="jun"><input id="jun" type="checkbox" name="jun">Июнь</label></div>       
-            <div><label style="display: none;" for="jul"><input id="jul" type="checkbox" name="jul">Июль</label></div>
-            <div><label style="display: none;" for="aug"><input id="aug" type="checkbox" name="aug">Август</label></div>
-            <div><label style="display: none;" for="sep"><input id="sep" type="checkbox" name="sep">Сентябрь</label></div>
-            <div><label style="display: none;" for="oct"><input id="oct" type="checkbox" name="oct">Октябрь</label></div>       
-            <div><label style="display: none;" for="nov"><input id="nov" type="checkbox" name="nov">Ноябрь</label></div>
-            <div><label style="display: none;" for="dec"><input id="dec" type="checkbox" name="dec">Декабрь</label></div><br> -->
+        <div id="choice-months" style="display: none">
+            <i><span>Выберите период, за который сдавался отчет:</span></i><br>
         </div> 
         <button id="btn-back-szv-quest">Назад</button>
         <button id="btn-next-szv-quest" style="display: none;">Дальше</button>  
@@ -624,9 +635,6 @@ $(function () {
                 <input type="submit" value="Отправить">
         </form>
     </div>
-
-
-
 </form>
 
 
