@@ -38,10 +38,19 @@ $(function () {
         var allInputs = $('.tax-system-answer > input');
         for (var i = 0; i < allInputs.length; i++) {
             if (allInputs.eq(i).prop('checked') ) {
-                if ( (i == 0) || (i == 1) ) {
+                if (i === 0) {
+                    $('.tax-answer-0').append( $('#choice-quarters') );
                     $('.tax-answer-0').show();
+                    $('#choice-quarters').show();
                     $('#btn-next-tax-system').show();
-                } else {
+                } 
+                else if (i === 1) {
+                    $('.tax-answer-1').append( $('#choice-quarters') );
+                    $('.tax-answer-1').show();
+                    $('#choice-quarters').show();
+                    $('#btn-next-tax-system').show();
+                }
+                else {
                     $('.tax-answer-' + i).show();
                     $('#btn-next-tax-system').show();
                 }
@@ -598,7 +607,7 @@ $(function () {
             <div><label style="display: none;" for="qrt-2-2014"><input id="qrt-2-2014" type="checkbox" name="qrt-2-2014">2-й квартал 2014 года</label></div><br>
         </div>  
         <label class="tax-system-answer" for="simple"><input id="simple" type="radio" name="tax-system">Упрощенная</label><br>
-        <div style="display: none" class="tax-answer-1">Контент если выбрано Упрощенная</div>        
+        <div style="display: none" class="tax-answer-1"></div>        
         <label class="tax-system-answer" for="another"><input id="another" type="radio" name="tax-system">Другая<br></label><br>
         <div style="display: none" class="tax-answer-2">Контент если выбрано Другая</div>        
         <label class="tax-system-answer" for="not-know"><input id="not-know" type="radio" name="tax-system">Я не знаю</label><br>
