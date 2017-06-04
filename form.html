@@ -267,6 +267,18 @@ $(function () {
         }  
     }
 
+    function insertDiffReportsIfQuartIs4 () {
+        if ( $('#qrt-4-2016').prop('checked') ) {
+            $('#div-from-customer').before('<div><label for="buh-rep-ifns-4-2016"><input id="buh-rep-ifns-4-2016" type="checkbox" name="buh-rep-ifns-4-2016" checked>Бухгалтерская(финансовая) отчетность за 2016 год в ИФНС</label></div><div><label for="buh-rep-stat-4-2016"><input id="buh-rep-stat-4-2016" type="checkbox" name="buh-rep-stat-4-2016" checked>Бухгалтерская(финансовая) отчетность за 2016 год в Росстат</label></div><div><label for="workers-cnt-4-2016"><input id="workers-cnt-4-2016" type="checkbox" name="workers-cnt-4-2016" checked>Сведения о среднесписочной численности работников за 2016 год</label></div>');
+        }
+        if ( $('#qrt-4-2015').prop('checked') ) {
+            $('#div-from-customer').before('<div><label for="buh-rep-ifns-4-2015"><input id="buh-rep-ifns-4-2015" type="checkbox" name="buh-rep-ifns-4-2015" checked>Бухгалтерская(финансовая) отчетность за 2015 год в ИФНС</label></div><div><label for="buh-rep-stat-4-2015"><input id="buh-rep-stat-4-2015" type="checkbox" name="buh-rep-stat-4-2015" checked>Бухгалтерская(финансовая) отчетность за 2015 год в Росстат</label></div><div><label for="workers-cnt-4-2015"><input id="workers-cnt-4-2015" type="checkbox" name="workers-cnt-4-2015" checked>Сведения о среднесписочной численности работников за 2016 год</label></div>');
+        }
+        if ( $('#qrt-4-2014').prop('checked') ) {
+            $('#div-from-customer').before('<div><label for="buh-rep-ifns-4-2014"><input id="buh-rep-ifns-4-2014" type="checkbox" name="buh-rep-ifns-4-2014" checked>Бухгалтерская(финансовая) отчетность за 2014 год в ИФНС</label></div><div><label for="buh-rep-stat-4-2014"><input id="buh-rep-stat-4-2014" type="checkbox" name="buh-rep-stat-4-2014" checked>Бухгалтерская(финансовая) отчетность за 2014 год в Росстат</label></div><div><label for="workers-cnt-4-2014"><input id="workers-cnt-4-2014" type="checkbox" name="workers-cnt-4-2014" checked>Сведения о среднесписочной численности работников за 2016 год</label></div>');
+        }
+    }
+
     $("#general").change(showAndHideTaxSystem);
     $("#simple").change(showAndHideTaxSystem);
     $("#another").change(showAndHideTaxSystem);
@@ -481,6 +493,7 @@ $(function () {
         }
        
         insertDeclUsnIfQuartIs4 ();
+        insertDiffReportsIfQuartIs4 ();
 
     });
     
@@ -531,7 +544,18 @@ $(function () {
         $('#decl-usn-4-2016').parent('label').parent('div').remove();
         $('#decl-usn-4-2015').parent('label').parent('div').remove();
         $('#decl-usn-4-2014').parent('label').parent('div').remove();
-        
+
+        $('#buh-rep-ifns-4-2016').parent('label').parent('div').remove();
+        $('#buh-rep-ifns-4-2015').parent('label').parent('div').remove();
+        $('#buh-rep-ifns-4-2014').parent('label').parent('div').remove();
+
+        $('#buh-rep-stat-4-2016').parent('label').parent('div').remove();
+        $('#buh-rep-stat-4-2015').parent('label').parent('div').remove();
+        $('#buh-rep-stat-4-2014').parent('label').parent('div').remove();        
+
+        $('#workers-cnt-4-2016').parent('label').parent('div').remove();
+        $('#workers-cnt-4-2015').parent('label').parent('div').remove();
+        $('#workers-cnt-4-2014').parent('label').parent('div').remove();        
     });
 
     $("#another-periods").click(function() {
@@ -731,7 +755,6 @@ $(function () {
         </form>
     </div>
 </form>
-
 
 
 </body>
