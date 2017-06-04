@@ -315,7 +315,10 @@ $(function () {
     $("#btn-next-one-face").click(function() {
         $('#div-one-face').hide();
         $('#div-szv-quest').show();
-        $('.month').remove();
+        if ('#szv-quest-no') {
+            $('.month').remove();
+        } 
+            
         showAndHideSzvMonths();
     });
 
@@ -400,7 +403,6 @@ $(function () {
             $('#btn-next-szv-quest').show(); 
             $('#choice-months').hide();
             $('.month').remove();
-            // showAndHideSzvMonths();
         } 
 
         if ( $('#szv-quest-yes').prop('checked')) {
@@ -417,13 +419,17 @@ $(function () {
             $('#szv-quest-no').parent('label').show(); 
             $('#btn-back-szv-quest').show();
             $('#btn-next-szv-quest').show(); 
-            $('#choice-months').hide();            
-            // $('.month').remove(); 
+            // $('#choice-months').hide(); 
+
+            var inputs = $('.month').children('div').children('label').children('input');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs.eq(i).parent('label').parent('div').parent('div').css('display', 'block');
+                if ( inputs.eq(i).parent('label').parent('div').css('display') == 'none' ) {
+                    inputs.eq(i).parent('label').parent('div').css('display', 'block');
+                    inputs.eq(i).prop('checked', true);
+                } else inputs.eq(i).prop('checked', false);              
+            }
         }
- 
-        // if ( $('#szv-quest-yes').prop('checked') ) {   
-        
-        // }
     });
 
     $("#another-periods").click(function() {
