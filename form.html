@@ -37,10 +37,16 @@ $(function () {
     var showAndHideTaxSystem = function () {
         var allInputs = $('.tax-system-answer > input');
         for (var i = 0; i < allInputs.length; i++) {
-            if (allInputs.eq(i).prop('checked')) {
-                $('.tax-answer-' + i).show();
-                $('#btn-next-tax-system').show();
-            } else $('.tax-answer-' + i).hide();                
+            if (allInputs.eq(i).prop('checked') ) {
+                if ( (i == 0) || (i == 1) ) {
+                    $('.tax-answer-0').show();
+                    $('#btn-next-tax-system').show();
+                } else {
+                    $('.tax-answer-' + i).show();
+                    $('#btn-next-tax-system').show();
+                }
+            } 
+            else $('.tax-answer-' + i).hide();                
         }
     }
 
@@ -279,6 +285,10 @@ $(function () {
             $('#div-tranz').show();
             $('#div-tax-system').hide();
         }
+        if ( $('#simple').prop('checked') ) {
+            $('#div-base').show();
+            $('#div-tax-system').hide();
+        }
     });
 
     $("#btn-back-tranz").click(function() {
@@ -286,7 +296,30 @@ $(function () {
         $('#div-tax-system').show();
         $('#btn-next-tax-system').show();
     });
+
+    $("#btn-back-base").click(function() {
+        $('#div-base').hide();
+        $('#div-tax-system').show();
+        $('#btn-next-tax-system').show();
+    });
     
+    $("#base-inc").change(function() {
+         if (($('#base-inc')).prop('checked')) {
+              $('#btn-next-base').show();
+         } 
+    });
+
+    $("#base-inc-spent").change(function() {
+        if (($('#base-inc-spent')).prop('checked')) {
+            $('#btn-next-base').show();
+        } 
+    });
+
+    $("#btn-next-base").click(function() {
+        $('#div-one-face').show();
+        $('#div-base').hide();
+    });
+
     $("#tranz-yes").change(function() {
          if (($('#tranz-yes')).prop('checked')) {
               $('#btn-next-tranz').show();
@@ -305,9 +338,14 @@ $(function () {
     });
     
     $("#btn-back-one-face").click(function() {
-        $('#div-tranz').show();
-        $('#div-one-face').hide();
-        
+        if ( $('#general').prop('checked') ) {
+            $('#div-tranz').show();
+            $('#div-one-face').hide();
+        }
+        if ( $('#simple').prop('checked') ) {
+            $('#div-base').show();
+            $('#div-one-face').hide();
+        }                
     });
 
     $("#one-face-yes").change(function() {
@@ -567,12 +605,21 @@ $(function () {
         <div style="display: none" class="tax-answer-3">Контент если выбрано Я не знаю какая система налоговая</div><br>        
         <button id="btn-next-tax-system" style="display: none;">Дальше</button>
     </div>
+    
     <div id="div-tranz" style="display: none">
         <span>Были ли движения по расчетному счету?</span><br>
         <label for="tranz-yes"><input id="tranz-yes" type="radio" name="tranz">Да</label><br>
         <label for="tranz-no"><input id="tranz-no" type="radio" name="tranz">Нет</label><br><br>
         <button id="btn-back-tranz">Назад</button> 
         <button id="btn-next-tranz" style="display: none;">Дальше</button> 
+    </div>
+
+    <div id="div-base" style="display: none">
+        <span>Какая у Вас база налогообложения?</span><br>
+        <label for="base-inc"><input id="base-inc" type="radio" name="base">Доходы</label><br>
+        <label for="base-inc-spent"><input id="base-inc-spent" type="radio" name="base">Доходы минус расходы</label><br><br>
+        <button id="btn-back-base">Назад</button> 
+        <button id="btn-next-base" style="display: none;">Дальше</button> 
     </div>
 
     <div id="div-one-face" style="display: none">
