@@ -321,8 +321,17 @@ $(function () {
             $('#div-tax-system').hide();
         }
         if ( $('#simple').prop('checked') ) {
-            $('#div-base').show();
-            $('#div-tax-system').hide();
+            if ( $("#qrt-4-2016").prop('checked') || 
+                 $("#qrt-4-2015").prop('checked') || 
+                 $("#qrt-4-2014").prop('checked') ) 
+            {
+                $('#div-base').show();
+                $('#div-tax-system').hide();              
+            } 
+            else {
+                $('#div-tax-system').hide();
+                $('#div-one-face').show(); 
+            }
         }
     });
 
@@ -374,12 +383,22 @@ $(function () {
     
     $("#btn-back-one-face").click(function() {
         if ( $('#general').prop('checked') ) {
-            $('#div-tranz').show();
-            $('#div-one-face').hide();
+             $('#div-tranz').show();
+             $('#div-one-face').hide();
         }
         if ( $('#simple').prop('checked') ) {
-            $('#div-base').show();
-            $('#div-one-face').hide();
+            if ( $("#qrt-4-2016").prop('checked') || 
+                 $("#qrt-4-2015").prop('checked') || 
+                 $("#qrt-4-2014").prop('checked') ) 
+            {
+                $('#div-one-face').hide();
+                $('#div-base').show();
+            } 
+            else 
+            {
+                $('#div-one-face').hide();
+                $('#div-tax-system').show();
+            }
         }                
     });
 
