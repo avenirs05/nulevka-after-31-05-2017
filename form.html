@@ -430,8 +430,11 @@ $(function () {
 
         if ( $('#tranz-yes').prop('checked') == false && $('#one-face-yes').prop('checked') ) {
             hideAllInputsWillSend();
-            $('#decl-one').parent().parent().show();
-            showInputsWillSend('#decl-one');
+            
+            if ( $('#simple').prop('checked') ) {
+                $('#decl-one').parent().parent().show();
+                showInputsWillSend('#decl-one');
+            }
             $('#count-ins').parent().parent().show();
             showInputsWillSend('#count-ins');
             $('#count-fss').parent().parent().show();
@@ -440,8 +443,12 @@ $(function () {
 
         if ( $('#tranz-yes').prop('checked') == false && $('#one-face-yes').prop('checked') == false ) {
             hideAllInputsWillSend ();
-            $('#decl-one').parent().parent().show();
-            showInputsWillSend('#decl-one');
+            
+            if ( $('#simple').prop('checked') ) {
+                $('#decl-one').parent().parent().show();
+                showInputsWillSend('#decl-one');
+            }
+            
             $('#count-ins').parent().parent().show();
             showInputsWillSend('#count-ins');
             $('#count-fss').parent().parent().show();
