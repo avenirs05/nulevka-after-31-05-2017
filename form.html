@@ -253,6 +253,20 @@ $(function () {
         }
     } 
 
+    function insertDeclUsnIfQuartIs4 () {
+        if ( $('#simple').prop('checked') && ( $('#qrt-4-2014').prop('checked') || $('#qrt-4-2015').prop('checked') || $('#qrt-4-2016').prop('checked') ) )  {
+            if ( $('#qrt-4-2016').prop('checked') ) {
+                $('#div-from-customer').before('<div><label for="decl-usn-4-2016"><input id="decl-usn-4-2016" type="checkbox" name="decl-usn-4-2016" checked>Налоговая декларация по УСН за 2016 год</label></div>');
+            }
+            if ( $('#qrt-4-2015').prop('checked') ) {
+                $('#div-from-customer').before('<div><label for="decl-usn-4-2015"><input id="decl-usn-4-2015" type="checkbox" name="decl-usn-4-2015" checked>Налоговая декларация по УСН за 2015 год</label></div>');
+            }
+            if ( $('#qrt-4-2014').prop('checked') ) {
+                $('#div-from-customer').before('<div><label for="decl-usn-4-2014"><input id="decl-usn-4-2014" type="checkbox" name="decl-usn-4-2015" checked>Налоговая декларация по УСН за 2014 год</label></div>');
+            }
+        }  
+    }
+
     $("#general").change(showAndHideTaxSystem);
     $("#simple").change(showAndHideTaxSystem);
     $("#another").change(showAndHideTaxSystem);
@@ -404,10 +418,14 @@ $(function () {
 
         if ( $('#tranz-yes').prop('checked') && $('#one-face-yes').prop('checked') ) {            
             hideAllInputsWillSend();
-            $('#decl-nds').parent().parent().show();
-            showInputsWillSend('#decl-nds');
-            $('#decl-profit').parent().parent().show();
-            showInputsWillSend('#decl-profit');
+
+            if ( $('#general').prop('checked') ) {
+                $('#decl-nds').parent().parent().show();
+                showInputsWillSend('#decl-nds');
+                $('#decl-profit').parent().parent().show();
+                showInputsWillSend('#decl-profit');
+            }
+
             $('#count-ins').parent().parent().show();
             showInputsWillSend('#count-ins');
             $('#count-fss').parent().parent().show();
@@ -416,10 +434,14 @@ $(function () {
 
         if ( $('#tranz-yes').prop('checked') && $('#one-face-yes').prop('checked') == false ) {
             hideAllInputsWillSend();
-            $('#decl-nds').parent().parent().show();
-            showInputsWillSend('#decl-nds');
-            $('#decl-profit').parent().parent().show();
-            showInputsWillSend('#decl-profit');
+
+            if ( $('#general').prop('checked') ) {
+                $('#decl-nds').parent().parent().show();
+                showInputsWillSend('#decl-nds');
+                $('#decl-profit').parent().parent().show();
+                showInputsWillSend('#decl-profit');
+            }
+
             $('#count-ins').parent().parent().show();
             showInputsWillSend('#count-ins');
             $('#count-fss').parent().parent().show();
@@ -435,6 +457,7 @@ $(function () {
                 $('#decl-one').parent().parent().show();
                 showInputsWillSend('#decl-one');
             }
+
             $('#count-ins').parent().parent().show();
             showInputsWillSend('#count-ins');
             $('#count-fss').parent().parent().show();
@@ -455,7 +478,10 @@ $(function () {
             showInputsWillSend('#count-fss');
             $('#szv-m').parent().parent().show();
             showInputsWillSendSzv();
-        }  
+        }
+       
+        insertDeclUsnIfQuartIs4 ();
+
     });
     
     $("#btn-back-will-send").click(function() {
@@ -501,6 +527,11 @@ $(function () {
                 } else inputs.eq(i).prop('checked', false);              
             }
         }
+
+        $('#decl-usn-4-2016').parent('label').parent('div').remove();
+        $('#decl-usn-4-2015').parent('label').parent('div').remove();
+        $('#decl-usn-4-2014').parent('label').parent('div').remove();
+        
     });
 
     $("#another-periods").click(function() {
