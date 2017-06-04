@@ -38,14 +38,14 @@ $(function () {
         var allInputs = $('.tax-system-answer > input');
         for (var i = 0; i < allInputs.length; i++) {
             if (allInputs.eq(i).prop('checked') ) {
-                if (i === 0) {
-                    $('.tax-answer-0').append( $('#choice-quarters') );
+                if (i === 0) {                    
+                    $('.tax-answer-0').after( $('#choice-quarters') );
                     $('.tax-answer-0').show();
                     $('#choice-quarters').show();
                     $('#btn-next-tax-system').show();
                 } 
                 else if (i === 1) {
-                    $('.tax-answer-1').append( $('#choice-quarters') );
+                    $('.tax-answer-1').after( $('#choice-quarters') );
                     $('.tax-answer-1').show();
                     $('#choice-quarters').show();
                     $('#btn-next-tax-system').show();
@@ -578,7 +578,8 @@ $(function () {
     <div id="div-tax-system">
         <span>Выберите систему налогообложения:</span><br>        
         <label class="tax-system-answer" for="general"><input id="general" type="radio" name="tax-system">Общая</label><br>
-        <div id="choice-quarters" style="display: none" class="tax-answer-0"><i><span>Выберите период</span></i><br>
+        <div style="display: none" class="tax-answer-0"></div>  
+        <div id="choice-quarters" style="display: none"><i><span>Выберите период</span></i><br>
             <div><label for="qrt-2-2017"><input id="qrt-2-2017" type="checkbox" name="qrt-2-2017" checked>2-й квартал 2017 года</label></div>            
             <a id="another-periods" href="#" onclick="return false;">Другие периоды</a><br>
             <div><label style="display: none;" for="qrt-1-2017"><input id="qrt-1-2017" type="checkbox" name="qrt-1-2017">1-й квартал 2017 года</label></div>
