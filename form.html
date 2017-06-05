@@ -51,6 +51,7 @@ $(function () {
                     $('#btn-next-tax-system').show();
                 }
                 else {
+                    $('#choice-quarters').hide();
                     $('.tax-answer-' + i).show();
                     $('#btn-next-tax-system').show();
                 }
@@ -491,7 +492,7 @@ $(function () {
         if ( $('#tranz-yes').prop('checked') == false && $('#one-face-yes').prop('checked') ) {
             hideAllInputsWillSend();
             
-            if ( $('#simple').prop('checked') ) {
+            if ( $('#general').prop('checked') ) {
                 $('#decl-one').parent().parent().show();
                 showInputsWillSend('#decl-one');
             }
@@ -505,7 +506,7 @@ $(function () {
         if ( $('#tranz-yes').prop('checked') == false && $('#one-face-yes').prop('checked') == false ) {
             hideAllInputsWillSend ();
             
-            if ( $('#simple').prop('checked') ) {
+            if ( $('#general').prop('checked') ) {
                 $('#decl-one').parent().parent().show();
                 showInputsWillSend('#decl-one');
             }
@@ -520,6 +521,13 @@ $(function () {
        
         insertDeclUsnIfQuartIs4 ();
         insertDiffReportsIfQuartIs4 ();
+
+        if ( $('#qrt-4-2016').prop('checked') || 
+             $('#qrt-4-2015').prop('checked') ||
+             $('#qrt-4-2014').prop('checked') ) 
+        {
+            $('#cnt-workers').parent().show();
+        } 
 
     });
     
@@ -773,6 +781,8 @@ $(function () {
     </div>
 
     <div id="div-from-customer" style="display: none;">
+        <div style="display: none;"><div>Количество работников</div><input id="cnt-workers" type="text" name="cnt-workers"></div>
+        <div><div>СНИЛС директора</div><input id="snils-dir" type="text" name="snils-dir"></div>
         <div><div>Название компании</div><input id="company-name" type="text" name="company-name"></div>
         <div><div>Инн</div><input id="inn" type="text" name="inn"></div>
         <div><div>Телефон</div><input id="phone" type="text" name="phone"></div>
