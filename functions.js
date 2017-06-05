@@ -92,7 +92,7 @@ var showAndHideSzvMonths = function () {
           for (var i = inputs.length - 1; i >= 0; i--) {
                if ( inputs.eq(i).prop('checked') ) {
                     $('#choice-months')
-                    .after('<div class="month">' + inputs.eq(i).parent('label').text() + listOfMonths( inputs.eq(i).parent('label'), i ) + '</div>');
+                    .after('<div class="month"><span>' + inputs.eq(i).parent('label').text() + '</span>' + listOfMonths( inputs.eq(i).parent('label'), i ) + '</div>');
                } 
           }
 
@@ -161,9 +161,15 @@ function showInputsWillSendSzv () {
 
         var divs = $('.month');
         for (var i = 0; i < divs.length; i++) {
-            if ( divs.eq(i).children('div').eq(0).css('display') == 'none' && divs.eq(i).children('div').eq(1).css('display') == 'none' && divs.eq(i).children('div').eq(2).css('display') == 'none' ) {
+            if ( divs.eq(i).children('div').eq(0).css('display') == 'none' && 
+                divs.eq(i).children('div').eq(1).css('display') == 'none' && 
+                divs.eq(i).children('div').eq(2).css('display') == 'none' ) 
+            {
                 divs.eq(i).css('display', 'none');
             }
+        }
+        if ( $('.month > span').length === 1) {
+            $('.month > span').hide();
         }
     } else {
         $('#btn-next-tax-system').hide();

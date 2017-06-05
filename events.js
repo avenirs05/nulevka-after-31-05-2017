@@ -138,12 +138,14 @@ $(function () {
 
     $("#szv-quest-yes").change(function() {
          if (($('#szv-quest-yes')).prop('checked')) {
+              $('#choice-months').show();
               $('#btn-next-szv-quest').show();
          } 
     });
 
     $("#szv-quest-no").change(function() {
         if (($('#szv-quest-no')).prop('checked')) {
+            $('#choice-months').hide();
             $('#btn-next-szv-quest').show();
         } 
     });
