@@ -127,6 +127,8 @@ $(function () {
     $("#one-face-yes").change(function() {
          if (($('#one-face-yes')).prop('checked')) {
               $('#btn-next-one-face').show();
+              // $('#szv-quest-yes').prop('checked', false);
+              // $('#szv-quest-no').prop('checked', false);
          } 
     });
 
@@ -175,6 +177,7 @@ $(function () {
         $('#div-will-send').show();
         $('#span-we-will-send').show();
         $('#div-from-customer').show();
+        $('#snils-dir').parent('div').show();
 
         if ( $('#tranz-yes').prop('checked') && $('#one-face-yes').prop('checked') ) {            
             hideAllInputsWillSend();
@@ -222,6 +225,7 @@ $(function () {
             showInputsWillSend('#count-ins');
             $('#count-fss').parent().parent().show();
             showInputsWillSend('#count-fss');
+
         }
 
         if ( $('#tranz-yes').prop('checked') == false && $('#one-face-yes').prop('checked') == false ) {
@@ -250,10 +254,15 @@ $(function () {
             $('#cnt-workers').parent().show();
         } 
 
+        if ( $('#one-face-yes').prop('checked') ) {
+            $('#snils-dir').parent('div').hide();
+        }
+
     });
 
     $("#btn-back-will-send").click(function() {
-        if ( $('#szv-quest-no').prop('checked') ) {
+        $('#snils-dir').parent('div').hide();
+        if ( ($('#szv-quest-no').prop('checked')) && ($('#one-face-yes').prop('checked') == false) ) {
             $('#div-will-send').hide();
             $('#div-from-customer').hide();
             $(".periods-will-send").remove();
@@ -269,7 +278,7 @@ $(function () {
             $('#choice-months').hide();
             $('.month').remove();
         } 
-        if ( $('#szv-quest-yes').prop('checked')) {
+        if ( ($('#szv-quest-yes').prop('checked')) && ($('#one-face-yes').prop('checked') == false) ) {
             $('#div-will-send').hide();
             $('#div-from-customer').hide();
             $(".periods-will-send").remove();
@@ -282,7 +291,7 @@ $(function () {
             $('#szv-quest-no').parent('label').show(); 
             $('#btn-back-szv-quest').show();
             $('#btn-next-szv-quest').show(); 
-            
+
             var inputs = $('.month').children('div').children('label').children('input');
             for (var i = 0; i < inputs.length; i++) {
                 inputs.eq(i).parent('label').parent('div').parent('div').css('display', 'block');
@@ -292,7 +301,17 @@ $(function () {
                 } else inputs.eq(i).prop('checked', false);              
             }
         }
-        if ( ($('#szv-quest-no').prop('checked') == false) && ($('#szv-quest-yes').prop('checked') == false) ) {
+        // if ( ($('#szv-quest-no').prop('checked') == false) && ($('#szv-quest-yes').prop('checked') == false) ) {
+        //     $('#div-will-send').hide();
+        //     $('#div-from-customer').hide();
+        //     $(".periods-will-send").remove();
+        //     $('#div-one-face').show();  
+        //     $('#span-we-will-send-2017').hide(); 
+        //     $('#choice-months').hide();
+        //     $('.month').remove();
+        // }
+
+        if ( ($('#one-face-yes').prop('checked')) ) {
             $('#div-will-send').hide();
             $('#div-from-customer').hide();
             $(".periods-will-send").remove();
@@ -301,6 +320,8 @@ $(function () {
             $('#choice-months').hide();
             $('.month').remove();
         }
+
+
 
         $('#decl-usn-4-2016').parent('label').parent('div').remove();
         $('#decl-usn-4-2015').parent('label').parent('div').remove();
