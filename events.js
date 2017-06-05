@@ -262,6 +262,7 @@ $(function () {
 
     $("#btn-back-will-send").click(function() {
         $('#snils-dir').parent('div').hide();
+        $('#cnt-workers').parent('div').hide();
         if ( ($('#szv-quest-no').prop('checked')) && ($('#one-face-yes').prop('checked') == false) ) {
             $('#div-will-send').hide();
             $('#div-from-customer').hide();
