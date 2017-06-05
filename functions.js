@@ -173,7 +173,7 @@ function showInputsWillSendSzv () {
         for (var i = inputs.length - 1; i >= 0; i--) {
              if ( inputs.eq(i).prop('checked') ) {
                   $('#choice-months')
-                  .after('<div class="month">' + inputs.eq(i).parent('label').text() + listOfMonths( inputs.eq(i).parent('label'), i ) + '</div>');
+                  .after('<div class="month"><span>' + inputs.eq(i).parent('label').text() + '</span>' + listOfMonths( inputs.eq(i).parent('label'), i ) + '</div>');
              } 
         }
 
@@ -194,6 +194,10 @@ function showInputsWillSendSzv () {
         for (var i = 0; i < divs.length; i++) {
             divs.eq(i).children('div').children('label').children('input').prop('checked', true);
         } 
+
+        if ( $('.month > span').length === 1) {
+            $('.month > span').hide();
+        }
     }     
 }
             

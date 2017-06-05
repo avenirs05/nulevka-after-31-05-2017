@@ -127,8 +127,6 @@ $(function () {
     $("#one-face-yes").change(function() {
          if (($('#one-face-yes')).prop('checked')) {
               $('#btn-next-one-face').show();
-              // $('#szv-quest-yes').prop('checked', false);
-              // $('#szv-quest-no').prop('checked', false);
          } 
     });
 
